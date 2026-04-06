@@ -5,13 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>unfold</title>
 
-<!-- CSS -->
 <link rel="stylesheet" href="main.css">
 
-<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playwrite+DK+Uloopet+Guides&family=Questrial&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playwrite+DK+Uloopet+Guides&family=Questrial&family=Caveat&display=swap" rel="stylesheet">
 </head>
 
 <body id="body">
@@ -27,14 +25,13 @@
     <!-- JOURNAL -->
     <div class="journal">
 
-        <h1>Today's entry</h1>
+        <h1>today's entry</h1>
         <p class="subtext">a space to slow down and reflect</p>
 
         <input type="date" id="date">
 
-        <!-- MOODS -->
         <div class="moods" id="moods">
-		<p>How are you feeling today?</p>
+            <p>how are you feeling today?</p>
             <span>😊</span>
             <span>😌</span>
             <span>😔</span>
@@ -42,13 +39,12 @@
             <span>😴</span>
         </div>
 
-        <input type="text" id="gratitude" placeholder="Something you're grateful for...">
+        <input type="text" id="gratitude" placeholder="something you're grateful for...">
 
-        <textarea id="entry" placeholder="Write your thoughts..."></textarea>
+        <textarea id="entry" placeholder="write your thoughts..."></textarea>
 
-        <button onclick="saveEntry()">Save Entry</button>
+        <button onclick="saveEntry()">save entry</button>
 
-        <!-- PAST ENTRIES -->
         <div class="entries" id="entries"></div>
 
     </div>
@@ -62,24 +58,21 @@
         <option value="images/cozy-cafe.jpg">cozy cafe</option>
         <option value="images/rainy-window.jpg">rainy window</option>
         <option value="images/cotton-balls.jpg">clouds</option>
-		<option value="images/sunset.jpg">sunset</option>
+        <option value="images/sunset.jpg">sunset</option>
     </select>
 
-	
-		<select onchange="changeSound(this.value)">
-		<option value="music/floating_away.mp3">floating away</option>
-    	<option value="music/jazzy-cafe.mp3">late night cafe</option>
-    	<option value="music/lofi-rain.mp3">rainy day</option>
-	</select>
-	
-	<!-- Play / Pause -->
-    <button onclick="toggleSound()" id="soundBtn">Play</button>
+    <select onchange="changeSound(this.value)">
+        <option value="music/floating_away.mp3">floating away</option>
+        <option value="music/jazzy-cafe.mp3">late night</option>
+        <option value="music/lofi-rain.mp3">rainy day</option>
+    </select>
 
-    <!-- Volume -->
+    <button onclick="toggleSound()" id="soundBtn">play</button>
+
     <input type="range" min="0" max="1" step="0.01" value="0.5" onchange="setVolume(this.value)">
+
 </div>
 
-<!-- JS -->
 <script src="script.js"></script>
 
 </body>

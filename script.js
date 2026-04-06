@@ -9,21 +9,48 @@ const quotes = [
     "Be honest with yourself."
 ];
 
-document.getElementById("quote").innerText =
-    quotes[Math.floor(Math.random() * quotes.length)];
-
-/* MOOD SELECT */
+/* MOODS */
 let selectedMood = "";
 
-const moods = document.querySelectorAll("#moods span");
+/* AUDIO */
+let audio = new Audio("music/floating_away.mp3");
+audio.loop = true;
+audio.volume = 0.5;
 
-moods.forEach(m => {
-    m.addEventListener("click", () => {
-        moods.forEach(x => x.classList.remove("selected"));
-        m.classList.add("selected");
-        selectedMood = m.textContent;
+let isPlaying = false;
+let fadeInterval;
+
+/* INIT */
+window.onload = function () {
+    // quote
+    document.getElementById("quote").innerText =
+        quotes[Math.floor(Math.random() * quotes.length)];
+
+    // mood selection
+    document.querySelectorAll("#moods span").forEach(m => {
+        m.onclick = () => {
+            document.querySelectorAll("#moods span").forEach(x => x.classList.remove("selected"));
+            m.classList.add("selected");
+            selectedMood = m.textContent;
+        };
     });
-});
+
+    displayEntries();
+
+    // load saved background
+    const savedBg = localStorage.getItem("bg");
+    if (savedBg) {
+        document.body.style.backgroundImage = `url('${savedBg}')`;
+    }
+
+    // load sound
+    const savedSound = localStorage.getItem("sound");
+    if (savedSound) {
+        audio = new Audio(savedSound);
+        audio.loop = true;
+        audio.volume = 0.5;
+    }
+};
 
 /* SAVE ENTRY */
 function saveEntry() {
@@ -41,7 +68,7 @@ function saveEntry() {
     displayEntries();
 }
 
-/* DISPLAY ENTRIES */
+/* DISPLAY */
 function displayEntries() {
     const container = document.getElementById("entries");
     container.innerHTML = "";
@@ -62,52 +89,39 @@ function displayEntries() {
     });
 }
 
-window.onload = displayEntries;
-
-/* BACKGROUND SWITCH */
+/* BACKGROUND */
 function changeBackground(bg) {
-    document.getElementById("body").style.backgroundImage = `url('${bg}')`;
+    document.body.style.backgroundImage = `url('${bg}')`;
+    localStorage.setItem("bg", bg);
 }
 
 /* SOUND */
-// AUDIO SETUP
-let audio = new Audio("music/floating_away.mp3");
-audio.loop = true;
-audio.volume = 0.5;
-
-let isPlaying = false;
-let fadeInterval;
-
-/* CHANGE SOUND */
-function changeSound(src) {
-    fadeOut(() => {
-        audio = new Audio(src);
-        audio.loop = true;
-        audio.volume = 0;
-
-        fadeIn();
-        localStorage.setItem("sound", src);
-    });
-}
-
-/* PLAY / PAUSE */
 function toggleSound() {
     const btn = document.getElementById("soundBtn");
 
     if (!isPlaying) {
         fadeIn();
-        btn.innerText = "Pause";
+        btn.innerText = "pause";
     } else {
         fadeOut();
-        btn.innerText = "Play";
+        btn.innerText = "play";
     }
 
     isPlaying = !isPlaying;
 }
 
-/* VOLUME CONTROL */
-function setVolume(value) {
-    audio.volume = value;
+function changeSound(src) {
+    fadeOut(() => {
+        audio = new Audio(src);
+        audio.loop = true;
+        audio.volume = 0;
+        fadeIn();
+        localStorage.setItem("sound", src);
+    });
+}
+
+function setVolume(val) {
+    audio.volume = val;
 }
 
 /* FADE IN */
@@ -138,15 +152,3 @@ function fadeOut(callback) {
         }
     }, 100);
 }
-
-/* LOAD SAVED SOUND */
-window.onload = function () {
-    displayEntries();
-
-    const savedSound = localStorage.getItem("sound");
-    if (savedSound) {
-        audio = new Audio(savedSound);
-        audio.loop = true;
-        audio.volume = 0.5;
-    }
-};

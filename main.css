@@ -1,101 +1,117 @@
 @charset "utf-8";
-/* CSS Document */
 
-.title {
-	font-family: "Playwrite DK Uloopet Guides", cursive;
-	font-weight: 400;
-	font-size: 30px;
-	font-style: normal;
-}
-
+/* GLOBAL */
 body {
     margin: 0;
     font-family: "Questrial", sans-serif;
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
     background-image: url('images/cozy-cafe.jpg');
     transition: background 0.6s ease;
 }
 
-/* DARK OVERLAY */
+/* OVERLAY */
 .overlay {
-    background: rgba(0,0,0,0.25);
+    background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.5));
+    backdrop-filter: blur(2px);
     min-height: 100vh;
     padding: 40px 20px;
 }
 
 /* TOP BAR */
 .top-bar {
+   position: relative;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     color: white;
     margin-bottom: 30px;
 }
 
 .title {
-    font-family: 'Playfair Display', serif;
+    font-family: "Playwrite DK Uloopet Guides", cursive;
+    font-size: 40px;
     font-weight: 400;
+    letter-spacing: 1px;
+	text-align: center;
+	position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .quote {
-    font-size: 18px;
-    max-width: 250px;
+    font-size: 16px;
+    max-width: 260px;
     text-align: right;
+    opacity: 0.85;
+    font-style: italic;
+
+	/* new: keep it visible */
+    position: relative;
+    z-index: 1;
 }
 
-/* JOURNAL CARD */
+/* JOURNAL */
 .journal {
-    max-width: 600px;
-    margin: auto;
-    background: rgba(255, 250, 240, 0.85);
-    backdrop-filter: blur(8px);
-    padding: 30px;
-    border-radius: 14px;
-    box-shadow: 0 15px 50px rgba(0,0,0,0.25);
-    transition: all 0.3s ease;
+    width: 90%;
+    max-width: 800px;   /* wider on desktop */
+    margin: 60px auto;
 
-    /* notebook lines */
+    background: rgba(255, 250, 240, 0.85);
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 20px;
+
+    box-shadow: 
+        0 20px 60px rgba(0,0,0,0.3),
+        inset 0 0 20px rgba(255,255,255,0.2);
+
+    animation: fadeIn 0.8s ease;
+
     background-image: linear-gradient(to bottom, transparent 95%, #e0d6c8 95%);
     background-size: 100% 30px;
 }
 
-.journal:hover {
-    transform: translateY(-3px);
-}
-
 /* TEXT */
 h1 {
-    font-family: "Questrial", sans-serif;
     font-weight: 400;
+    text-transform: lowercase;
+	font-family: "Questrial", sans-serif;
 }
 
 .subtext {
     font-size: 15px;
+    opacity: 0.8;
+	font-family: "Questrial", sans-serif;
 }
 
 /* INPUTS */
 input, textarea {
     width: 100%;
     margin-top: 10px;
+    margin-bottom: 15px;
     border: none;
-    background: transparent;
     border-bottom: 1px solid #cbbfae;
+    background: transparent;
     padding: 8px;
-    font-family: inherit;
-	font-size: 15px;
+    font-family: "Questrial", sans-serif;
 }
 
+/* HANDWRITTEN */
 textarea {
-    height: 120px;
+    font-family: "Questrial", sans-serif;
+    font-size: 20px;
+    line-height: 1.6;
+    min-height: 160px;
     resize: none;
 }
 
 /* MOODS */
 .moods span {
+    font-size: 22px;
     margin-right: 10px;
     cursor: pointer;
-    font-size: 20px;
     transition: 0.2s;
 }
 
@@ -105,18 +121,13 @@ textarea {
 
 /* BUTTON */
 button {
-    margin-top: 15px;
+    margin-top: 10px;
     padding: 10px;
     border: none;
     background: #5a4a3f;
     color: white;
     border-radius: 9px;
     cursor: pointer;
-	font-family: "Questrial", sans-serif;
-}
-
-button a:hover {
-	background-color: #9AA3B6;
 }
 
 /* CONTROLS */
@@ -129,25 +140,67 @@ button a:hover {
     gap: 10px;
 }
 
-input[type="range"] {
-    width: 120px;
-    cursor: pointer;
-}
-
 select {
     padding: 6px;
     border-radius: 9px;
     border: none;
-	font-family: "Questrial", sans-serif;
+    font-family: inherit;
+}
+
+input[type="range"] {
+    width: 120px;
 }
 
 /* ENTRIES */
 .entries {
-    margin-top: 20px;
+    margin-top: 25px;
+	font-family: "Questrial", sans-serif;
 }
 
 .entry {
+	font-family: 'Questrial', sans-serif;
+	font-size: 15px;
     margin-top: 10px;
     padding-top: 10px;
     border-top: 1px solid #ddd;
+}
+
+/* ANIMATION */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* TABLET */
+@media (max-width: 900px) {
+    .journal {
+        max-width: 600px;
+        padding: 30px;
+    }
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+    .journal {
+        width: 95%;
+        max-width: none;
+        padding: 25px;
+        margin: 40px auto;
+    }
+
+    .top-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .quote {
+        text-align: left;
+    }
 }
